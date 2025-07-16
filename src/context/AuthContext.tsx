@@ -31,7 +31,7 @@ const login = async (username: string, password: string) => {
   setProfile({ ...profile, username });
   console.log("Login successful:", response);
   if(response.role === 'CASHIER') {
-    navigate('/cashier-home');}
+    navigate('/cashierHome');}
     else{
       navigate("/dashboard");
     }
