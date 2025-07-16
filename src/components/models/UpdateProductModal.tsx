@@ -93,24 +93,6 @@ const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                             required
                         />
                         <FormField
-                            label="Shelf Number"
-                            name="productShelfNumber"
-                            type="number"
-                            value={formData.productShelfNumber.toString()}
-                            onChange={onInputChange}
-                            placeholder="e.g., 5"
-                            required
-                        />
-                        <FormField
-                            label="Row Number"
-                            name="productRowNumber"
-                            type="number"
-                            value={formData.productRowNumber.toString()}
-                            onChange={onInputChange}
-                            placeholder="e.g., 3"
-                            required
-                        />
-                        <FormField
                             label="Product Brand"
                             name="productBrand"
                             type="text" // Changed to text as per typical brand names

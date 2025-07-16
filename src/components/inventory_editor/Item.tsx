@@ -10,9 +10,7 @@ const Item: React.FC<ItemProps> = ({
   productBrand,
   productPrice,
   productQuantity,
-  productShelfNumber,
   productDescription,
-  productRowNumber,
   productWeight,
   productImage,
   removeItem,
@@ -40,9 +38,7 @@ const Item: React.FC<ItemProps> = ({
   //     productBrand,
   //     productPrice,
   //     productQuantity: newQuantity,
-  //     productShelfNumber,
   //     productDescription,
-  //     productRowNumber: Number(productRowNumber),
   //     productWeight: Number(productWeight),
   //     productImage: productImage,
   //   };
@@ -62,9 +58,7 @@ const Item: React.FC<ItemProps> = ({
       productBrand,
       productPrice,
       productQuantity,
-      productShelfNumber,
       productDescription,
-      productRowNumber: Number(productRowNumber),
       productWeight: Number(productWeight),
       productImage: productImage,
     };
@@ -137,10 +131,6 @@ const Item: React.FC<ItemProps> = ({
           <div className={styles.infoItem}>
             <span className={styles.label}>Barcode:</span>
             <span className={styles.value}>{barcode}</span>
-          </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Location:</span>
-            <span className={styles.value}>Shelf {productShelfNumber}, Row {productRowNumber}</span>
           </div>
           <div className={styles.infoItem}>
             <span className={styles.label}>Weight:</span>

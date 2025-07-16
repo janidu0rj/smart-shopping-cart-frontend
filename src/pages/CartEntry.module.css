@@ -1,3 +1,147 @@
+/* Modal styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modalContent {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.modalText {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.modalButton {
+  background: #e5e7eb;
+  color: #111827;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modalButton:hover {
+  background: #d1d5db;
+}
+.modalButtonPrimary {
+  background: #4f46e5;
+  color: #fff;
+}
+.modalButtonPrimary:hover {
+  background: #3730a3;
+}
+
+/* Text color helpers */
+.dangerText {
+  color: #dc2626;
+}
+.successText {
+  color: #16a34a;
+}
+.grayText {
+  color: #9ca3af;
+}
+
+/* Difference card backgrounds */
+.bgNeutral {
+  background: #f9fafb;
+}
+.bgSuccess {
+  background: #f0fdf4;
+}
+.bgDanger {
+  background: #fef2f2;
+}
+
+/* Progress bar colors */
+.bgProgressSuccess {
+  background: #4f46e5 !important;
+}
+.bgProgressDanger {
+  background: #ef4444 !important;
+}
+
+/* Progress bar fill width using data attribute */
+.progressBarFill[data-width] {
+  width: calc(attr(data-width number) * 1%);
+}
+
+/* Checkout button and container */
+.checkoutButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+.checkoutButton {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.checkoutButton:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+.checkoutButton:hover:not(:disabled) {
+  background: #3730a3;
+}
+
+/* Flex helpers */
+.flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+.inputFlex {
+  flex: 1;
+}
+
+/* Table row backgrounds and hover */
+.tableRowEven {
+  background: #fff;
+}
+.tableRowOdd {
+  background: #f9fafb;
+}
+.tableRowHover {
+  background: #eef2ff !important;
+}
+
+/* Summary status colors */
+.summaryStatusSuccess {
+  color: #16a34a;
+}
+.summaryStatusDanger {
+  color: #dc2626;
+}
 /* Base styles */
 .container {
   position: fixed;

@@ -13,6 +13,7 @@ import { useAuthContext } from "./hooks/context/useAuthContext";
 import { ModalProvider } from "./context/ModalContext";
 import { ItemProvider } from "./context/ItemContext";
 import CartEntryPage from "./pages/CartEntryPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 // Protected route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -61,6 +62,14 @@ const App: React.FC = () => {
                                             element={
                                                 <ProtectedRoute>
                                                     <CartEntryPage />
+                                                </ProtectedRoute>
+                                            }
+                                        />
+                                        <Route
+                                            path="/checkout"
+                                            element={
+                                                <ProtectedRoute>
+                                                    <CheckoutPage />
                                                 </ProtectedRoute>
                                             }
                                         />

@@ -50,8 +50,6 @@ const InventoryEditorManager = () => {
             productPrice: product.productPrice.toString(),
             productQuantity: product.productQuantity.toString(),
             productCategory: product.productCategory,
-            productShelfNumber: product.productShelfNumber,
-            productRowNumber: product.productRowNumber,
             productBrand: product.productBrand,
             productWeight: product.productWeight,
             productImage: undefined,
@@ -84,10 +82,8 @@ const InventoryEditorManager = () => {
                             productBrand={item.productBrand}
                             productPrice={item.productPrice}
                             productQuantity={item.productQuantity}
-                            productShelfNumber={item.productShelfNumber}
                             productImage={item.productImage}
                             productDescription={item.productDescription}
-                            productRowNumber={item.productRowNumber}
                             productWeight={item.productWeight}
                         />
                     ))}

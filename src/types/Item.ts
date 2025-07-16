@@ -28,9 +28,7 @@ export type ItemProps = {
     productBrand: string;
     productPrice: number;
     productQuantity: number;
-    productShelfNumber: number;
     productDescription: string;
-    productRowNumber: number; // Stored as string from input, converted to number for API
     productWeight: number; // Stored as string from input, converted to number for API
     productImage?: File | string;
 }
@@ -49,8 +47,6 @@ export interface ProductFormState {
     productPrice: string; // Stored as string from input, converted to number for API
     productQuantity: string; // Stored as string from input, converted to number for API
     productCategory: string;
-    productShelfNumber: number; // Stored as string from input, converted to number for API
-    productRowNumber: number; // Stored as string from input, converted to number for API
     productBrand: string;
     productWeight: number; // Stored as string from input, converted to number for API
     productImage?: File | string;
@@ -62,8 +58,6 @@ export const defaultFormState: ProductFormState = {
     productPrice: "",
     productQuantity: "",
     productCategory: "",
-    productShelfNumber: 0,
-    productRowNumber: 0,
     productBrand: "",
     productWeight: 0,
     productImage: undefined,
@@ -86,8 +80,6 @@ export interface Product {
     productQuantity: number;
     productCategory: string;
     productImage?: File | string;
-    productShelfNumber: number;
-    productRowNumber: number;
     productBrand: string;
     productWeight: number;
 }
@@ -101,8 +93,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 150,
     productCategory: "Beverages",
     productImage: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd", // Coffee beans
-    productShelfNumber: 1,
-    productRowNumber: 5,
     productBrand: "Bean Bliss Organics",
     productWeight: 0.5
   },
@@ -114,8 +104,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 25,
     productCategory: "Electronics",
     productImage: "https://images.unsplash.com/photo-1606813908983-bf06a0f556f7", // Smart TV
-    productShelfNumber: 3,
-    productRowNumber: 2,
     productBrand: "ElectroVision",
     productWeight: 15.2
   },
@@ -127,8 +115,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 80,
     productCategory: "Fitness & Sports",
     productImage: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1", // Yoga mat
-    productShelfNumber: 2,
-    productRowNumber: 1,
     productBrand: "GreenStride Gear",
     productWeight: 1.2
   },
@@ -140,8 +126,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 100,
     productCategory: "Electronics",
     productImage: "https://images.unsplash.com/photo-1585386959984-a41552256f47", // Headphones
-    productShelfNumber: 3,
-    productRowNumber: 4,
     productBrand: "SonicWave Audio",
     productWeight: 0.25
   },
@@ -153,8 +137,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 200,
     productCategory: "Kitchenware",
     productImage: "https://images.unsplash.com/photo-1601047021051-76b5e8984c66", // Water bottle
-    productShelfNumber: 1,
-    productRowNumber: 10,
     productBrand: "HydroFlow Essentials",
     productWeight: 0.3
   },
@@ -166,8 +148,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 40,
     productCategory: "Home & Garden",
     productImage: "https://images.unsplash.com/photo-1585325701954-fd0868f27f8e", // Gardening tools
-    productShelfNumber: 4,
-    productRowNumber: 3,
     productBrand: "GreenThumb Tools",
     productWeight: 1.8
   },
@@ -179,8 +159,7 @@ export const sampleProducts: Product[] = [
     productQuantity: 70,
     productCategory: "Apparel",
     productImage: "https://images.unsplash.com/photo-1562158076-374213e6f939", // Denim jeans
-    productShelfNumber: 5,
-    productRowNumber: 1,
+
     productBrand: "TrueFit Denim",
     productWeight: 0.7
   },
@@ -192,8 +171,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 60,
     productCategory: "Bags & Luggage",
     productImage: "https://images.unsplash.com/photo-1593111224453-e458b7c9be30", // Backpack
-    productShelfNumber: 5,
-    productRowNumber: 5,
     productBrand: "UrbanCarry Gear",
     productWeight: 0.9
   },
@@ -205,8 +182,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 30,
     productCategory: "Arts & Crafts",
     productImage: "https://images.unsplash.com/photo-1582560475006-afea79b6cb4b", // Art supplies
-    productShelfNumber: 4,
-    productRowNumber: 1,
     productBrand: "CreativeFlow Art",
     productWeight: 1.5
   },
@@ -218,8 +193,6 @@ export const sampleProducts: Product[] = [
     productQuantity: 90,
     productCategory: "Health & Personal Care",
     productImage: "https://images.unsplash.com/photo-1588776814546-3f1fefb34f2e", // Smart scale
-    productShelfNumber: 2,
-    productRowNumber: 7,
     productBrand: "FitMeasure Tech",
     productWeight: 1.0
   }

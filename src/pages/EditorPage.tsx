@@ -88,8 +88,6 @@ const EditorPage: React.FC = () => {
             productPrice,
             productQuantity,
             productCategory,
-            productShelfNumber,
-            productRowNumber,
             productBrand,
             productWeight,
         } = formData;
@@ -100,8 +98,6 @@ const EditorPage: React.FC = () => {
             !productPrice ||
             !productQuantity ||
             !productCategory ||
-            !productShelfNumber ||
-            !productRowNumber ||
             !productBrand ||
             !productWeight
         ) {
@@ -118,22 +114,6 @@ const EditorPage: React.FC = () => {
             +productQuantity < 0
         ) {
             setError("Product Quantity must be a non-negative integer.");
-            return false;
-        }
-        if (
-            isNaN(+productShelfNumber) ||
-            !Number.isInteger(+productShelfNumber) ||
-            +productShelfNumber <= 0
-        ) {
-            setError("Product Shelf Number must be a positive integer.");
-            return false;
-        }
-        if (
-            isNaN(+productRowNumber) ||
-            !Number.isInteger(+productRowNumber) ||
-            +productRowNumber <= 0
-        ) {
-            setError("Product Row Number must be a positive integer.");
             return false;
         }
         if (isNaN(+productWeight) || +productWeight <= 0) {
@@ -161,8 +141,6 @@ const EditorPage: React.FC = () => {
                     productPrice: +formData.productPrice,
                     productQuantity: +formData.productQuantity,
                     productCategory: formData.productCategory,
-                    productShelfNumber: +formData.productShelfNumber,
-                    productRowNumber: +formData.productRowNumber,
                     productBrand: formData.productBrand,
                     productWeight: +formData.productWeight,
                 };
@@ -213,8 +191,6 @@ const EditorPage: React.FC = () => {
                     productPrice: +formData.productPrice,
                     productQuantity: +formData.productQuantity,
                     productCategory: formData.productCategory,
-                    productShelfNumber: +formData.productShelfNumber,
-                    productRowNumber: +formData.productRowNumber,
                     productBrand: formData.productBrand,
                     productWeight: +formData.productWeight,
                 };
