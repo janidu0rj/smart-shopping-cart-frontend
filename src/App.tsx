@@ -14,6 +14,7 @@ import { ModalProvider } from "./context/ModalContext";
 import { ItemProvider } from "./context/ItemContext";
 import CartEntryPage from "./pages/CartEntryPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import CashierHome from "./pages/CashierHome";
 
 // Protected route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -73,6 +74,15 @@ const App: React.FC = () => {
                                                 </ProtectedRoute>
                                             }
                                         />
+                                        <Route
+                                            path="/cashierHome"
+                                            element={
+                                                <ProtectedRoute>
+                                                    <CashierHome />
+                                                </ProtectedRoute>
+                                            }
+                                        />
+
                                         <Route path="*" element={<Navigate to="/" replace />} />
                                     </Routes>
                                 </NodeProvider>
