@@ -11,7 +11,7 @@ import { layoutService } from "../hooks/services/layoutService";
  */
 export const loadItemMap: (storeName: string) => Promise<any> = async (storeName) => {
   try {
-    const layout = await layoutService.getLayout(storeName);
+    const layout = await layoutService.getLayout();
     return layout?.itemMap || {};
   } catch (error) {
     console.error("Error loading item map:", error);
@@ -25,7 +25,7 @@ export const loadItemMap: (storeName: string) => Promise<any> = async (storeName
  */
 export const loadFixtureLayout: (storeName: string) => Promise<any> = async (storeName) => {
   try {
-    const layout = await layoutService.getLayout(storeName);
+    const layout = await layoutService.getLayout();
     return layout?.fixtureLayout || {};
   } catch (error) {
     console.error("Error loading store layout:", error);
