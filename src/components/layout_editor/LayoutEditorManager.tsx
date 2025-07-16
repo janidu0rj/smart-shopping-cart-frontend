@@ -28,23 +28,19 @@ const LayoutEditorManager: React.FC = () => {
     // Load fixtures on component mount or authentication state change
     useEffect(() => {
         const loadFixtures = async () => {
-            // Ensure profile and role are defined and match MANAGER
             if (profile?.role === "MANAGER") {
-                try {
-                    const loadedLayout = await loadFixtureLayout(profile.storeName || '');
-                    console.log("Initial fixtures loaded:", loadedLayout);
-                    setFixtures(loadedLayout || {});
-                } catch (error) {
-                    console.error("Error loading fixtures:", error);
-                }
+            try {
+                const loadedLayout = await loadFixtureLayout(); // ✅ no argument
+                setFixtures(loadedLayout); // ✅ matches expected type: Record<string, Fixture>
+            } catch (error) {
+                console.error("Error loading fixtures:", error);
+            }
             }
         };
-
-        // Load fixtures only if authenticated
         if (isAuthenticated) {
             loadFixtures();
         }
-    }, [isAuthenticated, profile?.storeName, profile?.role, setFixtures]); // Added setFixtures to dependencies for completeness
+        }, [isAuthenticated, profile?.role, setFixtures]);
 
     const [dimensions, setDimensions] = useState({
         // Initialize dimensions safely for SSR or initial render
