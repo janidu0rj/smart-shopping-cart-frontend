@@ -2,7 +2,8 @@
 import axios from "axios";
 
 // Base URL for API requests; switch to production URL when deploying
-const API_BASE_URL = "http://localhost:4020/api"; // Use 'https://server-production-6f21.up.railway.app/api' in production
+//const API_BASE_URL = "http://localhost:4020/api"; // Use 'https://server-production-6f21.up.railway.app/api' in production
+const API_BASE_URL = "http://52.66.202.232/"
 
 // Create axios instance with base URL and JSON content-type headers
 const api = axios.create({
