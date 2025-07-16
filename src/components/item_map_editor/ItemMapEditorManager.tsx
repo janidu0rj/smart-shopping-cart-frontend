@@ -25,22 +25,19 @@ const ItemMapEditorManager: React.FC = () => {
 
     useEffect(() => {
         const loadItems = async () => {
-            // Ensure profile and role are defined and match MANAGER
             if (profile?.role === "MANAGER") {
-                try {
-                    const savedMap = await loadItemMap(profile.storeName || '');
-                    console.log("Initial item map loaded:", savedMap);
-                    setItemMap(savedMap || {}); // Set the loaded map or an empty object
-                } catch (error) {
-                    console.error("Error loading item map:", error);
-                }
+            try {
+                const savedMap = await loadItemMap(); // ✅ no argument
+                setItemMap(savedMap); // ✅ matches expected type: Record<string, Item[][][]>
+            } catch (error) {
+                console.error("Error loading item map:", error);
+            }
             }
         };
-        // Load items only if authenticated (prevents unnecessary calls)
         if (isAuthenticated) {
             loadItems();
         }
-    }, [isAuthenticated, profile?.storeName, profile?.role, setItemMap]); // Add dependencies for useEffect
+        }, [isAuthenticated, profile?.role, setItemMap]);
 
     return (
         <div className={styles.itemMapEditorOverlay}>
