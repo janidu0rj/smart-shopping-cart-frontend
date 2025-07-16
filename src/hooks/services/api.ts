@@ -8,9 +8,7 @@ const API_BASE_URL = "https://api.smartcartfree.site/api"
 // Create axios instance with base URL and JSON content-type headers
 const api = axios.create({
     baseURL: API_BASE_URL,
-    headers: {
-        "Content-Type": "application/json",
-    },
+    // Do not set default Content-Type header here; let axios set it automatically
 });
 
 /**
