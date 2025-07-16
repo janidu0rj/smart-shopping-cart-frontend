@@ -11,8 +11,8 @@ const CashierHome: React.FC = () => {
       <header className="cashier-header">
         <div className="cashier-title">Smart Shopping</div>
         <nav className="cashier-nav">
-          <a href="#">Home</a>
-          <a href="#">Profile</a>
+          <a href="/cashierHome">Home</a>
+          <a href="/dashboard">Profile</a>
           <a href="#">Logout</a>
         </nav>
       </header>
@@ -37,7 +37,7 @@ const CashierHome: React.FC = () => {
             <li>🔁 Auto updates of checkout results</li>
           </ul>
           <motion.button
-            onClick={() => navigate('/cart-entry')}
+            onClick={() => navigate('/counter')}
             className="cashier-button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
