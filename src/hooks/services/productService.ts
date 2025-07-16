@@ -2,7 +2,7 @@ import { Product, sampleProducts, CartItem } from "../../types/Item";
 import api from "./api"; // Assuming your configured axios instance
 
 // Define interface for Product creation payload (without barcode, includes image as File)
-export interface AddProductPayload extends Omit<Product, 'barcode' | 'productImage'> {
+export interface AddProductPayload extends Omit<Product, 'productImage'> {
     productImage?: File | string; // For upload
 }
 
