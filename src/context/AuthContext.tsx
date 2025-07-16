@@ -30,7 +30,12 @@ const login = async (username: string, password: string) => {
   setIsAuthenticated(true);
   setProfile({ ...profile, username });
   console.log("Login successful:", response);
-  navigate("/dashboard");
+  if(response.role === 'CASHIER') {
+    navigate('/cashier-home');}
+    else{
+      navigate("/dashboard");
+    }
+  
 };
 
 

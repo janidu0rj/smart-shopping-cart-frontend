@@ -1,0 +1,120 @@
+/* CashierHome.css */
+
+.cashier-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f1f5f9, #ffffff, #e2e8f0); /* from-slate-100 via-white to-slate-200 */
+}
+
+.cashier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cashier-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #4f46e5; /* indigo-600 */
+}
+
+.cashier-nav a {
+  margin-left: 1.5rem;
+  color: #374151;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cashier-nav a:hover {
+  color: #4f46e5;
+}
+
+.cashier-main {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4rem;
+  padding: 5rem 2.5rem;
+  max-width: 80rem;
+  margin: auto;
+}
+
+@media (min-width: 1024px) {
+  .cashier-main {
+    flex-direction: row;
+  }
+}
+
+.cashier-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cashier-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #6366f1, #8b5cf6); /* from-indigo-500 to-purple-600 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cashier-description {
+  font-size: 1.125rem;
+  color: #4b5563;
+}
+
+.cashier-list {
+  color: #374151;
+  font-size: 1rem;
+  list-style-type: disc;
+  padding-left: 1.25rem;
+}
+
+.cashier-button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #ef4444;
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.cashier-button:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+
+.cashier-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.cashier-image-box {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.cashier-image {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  border-radius: 0.75rem;
+}
