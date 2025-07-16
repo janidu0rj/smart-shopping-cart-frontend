@@ -11,9 +11,15 @@ const CashierHome: React.FC = () => {
       <header className="cashier-header">
         <div className="cashier-title">Smart Shopping</div>
         <nav className="cashier-nav">
-          <a href="/cashierHome">Home</a>
-          <a href="/dashboard">Profile</a>
-          <a href="#">Logout</a>
+          <button onClick={() => navigate('/cashierHome')} className="nav-button">
+            Home
+          </button>
+          <button onClick={() => navigate('/dashboard')} className="nav-button">
+            Profile
+          </button>
+          <button onClick={() => navigate('/logout')} className="nav-button">
+            Logout
+          </button>
         </nav>
       </header>
 
