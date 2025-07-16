@@ -12,7 +12,6 @@ import React, { useCallback } from "react";
 import { useSidebarContext } from "../hooks/context/useSidebarContext";
 import LayoutEditorManager from "../components/layout_editor/LayoutEditorManager";
 import ItemMapEditorManager from "../components/item_map_editor/ItemMapEditorManager";
-import { ItemProvider } from "../context/ItemContext";
 import SidebarManager from "../components/sidebar/SidebarManager";
 import ToolbarManager from "../components/toolbar/ToolbarManager";
 import { useEditorContext } from "../hooks/context/useEditorContext";
@@ -27,7 +26,6 @@ import {
     AddProductPayload,
     UpdateProductPayload,
 } from "../hooks/services/productService";
-import { ModalProvider } from "../context/ModalContext";
 
 /**
  * EditorPage component renders the main app layout:
@@ -72,8 +70,12 @@ const EditorPage: React.FC = () => {
             const fetched = await productService.getAllProducts();
             setProducts(fetched);
             setFilteredProducts(fetched);
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Failed to fetch products.");
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Failed to fetch products.");
+            }
         } finally {
             setLoading(false);
         }
@@ -173,8 +175,12 @@ const EditorPage: React.FC = () => {
                 resetForm();
                 closeAddForm();
                 handleFetchAllProducts();
-            } catch (err: any) {
-                setError(err.response?.data?.message || "Failed to add product.");
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Failed to fetch products.");
+                }
             } finally {
                 setLoading(false);
             }
@@ -222,8 +228,12 @@ const EditorPage: React.FC = () => {
                 setCurrentBarcode(null);
                 closeUpdateForm();
                 handleFetchAllProducts();
-            } catch (err: any) {
-                setError(err.response?.data?.message || "Failed to update product.");
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Failed to update products.");
+                }
             } finally {
                 setLoading(false);
             }
@@ -254,8 +264,12 @@ const EditorPage: React.FC = () => {
             );
             setMessage(successMessage);
             handleFetchAllProducts();
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Failed to delete product.");
+        } catch (err: unknown) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Failed to delete products.");
+                }
         } finally {
             setLoading(false);
         }

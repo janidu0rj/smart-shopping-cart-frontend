@@ -31,23 +31,23 @@ const Item: React.FC<ItemProps> = ({
     }
   }, [productImage]);
 
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = Number(e.target.value);
-    const updatedProduct: Product = {
-      barcode,
-      productName: productName || '',
-      productCategory,
-      productBrand,
-      productPrice,
-      productQuantity: newQuantity,
-      productShelfNumber,
-      productDescription,
-      productRowNumber: Number(productRowNumber),
-      productWeight: Number(productWeight),
-      productImage: productImage,
-    };
-    updateItem(updatedProduct);
-  };
+  // const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newQuantity = Number(e.target.value);
+  //   const updatedProduct: Product = {
+  //     barcode,
+  //     productName: productName || '',
+  //     productCategory,
+  //     productBrand,
+  //     productPrice,
+  //     productQuantity: newQuantity,
+  //     productShelfNumber,
+  //     productDescription,
+  //     productRowNumber: Number(productRowNumber),
+  //     productWeight: Number(productWeight),
+  //     productImage: productImage,
+  //   };
+  //   updateItem(updatedProduct);
+  // };
 
   const handleEditClick = () => {
     // When the edit button is clicked, we'll trigger an update.
