@@ -136,6 +136,7 @@ const EditorPage: React.FC = () => {
 
             try {
                 const payload: AddProductPayload = {
+                    barcode: formData.barcode || "",
                     productName: formData.productName,
                     productDescription: formData.productDescription,
                     productPrice: +formData.productPrice,
