@@ -41,6 +41,21 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                 </button>
                 <h4 className={styles.modalTitle}>Add New Product</h4>
                 <form onSubmit={onSave}>
+                    <div className={styles.fileInputContainer}>
+                            <label htmlFor="barcode" className={styles.fileInputLabel}>
+                                Product Barcode
+                            </label>
+                            <input
+                                id="barcode"
+                                name="barcode"
+                                type="text"
+                                value={formData.barcode}
+                                onChange={onInputChange}
+                                placeholder="Enter product barcode"
+                                className={styles.fileInputField}
+                                required
+                            />
+                        </div>
                     <div className={styles.formGrid}>
                         <FormField
                             label="Product Name"
