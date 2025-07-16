@@ -13,6 +13,7 @@ interface CartItem {
   weight: number; // in grams
 }
 
+
 const CartEntry: React.FC = () => {
   const navigate = useNavigate();
   const [cartId, setCartId] = useState('');
@@ -23,6 +24,11 @@ const CartEntry: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [username, setUsername] = useState('');
   const [expectedWeightFromBill, setExpectedWeightFromBill] = useState<number | null>(null);
+
+  // Modal/verification state variables
+  const [showVerificationPopup, setShowVerificationPopup] = useState(false);
+  const [weightDifference, setWeightDifference] = useState<number | null>(null);
+  const [hasContinueAfterMismatch, setHasContinueAfterMismatch] = useState(false);
 
 
   const fetchDataForUser = async (userId: string) => {
@@ -123,10 +129,28 @@ const CartEntry: React.FC = () => {
   //   [items]
   // );
 
+
   const calculateWeightDifference = useCallback(() => {
     if (actualWeight === null || expectedWeightFromBill === null) return null;
     return actualWeight - expectedWeightFromBill;
   }, [actualWeight, expectedWeightFromBill]);
+
+  // Show verification popup if difference is outside tolerance and not already continued
+  useEffect(() => {
+    const diff = calculateWeightDifference();
+    setWeightDifference(diff);
+    if (
+      diff !== null &&
+      Math.abs(diff) > 50 &&
+      !hasContinueAfterMismatch &&
+      items.length > 0
+    ) {
+      setShowVerificationPopup(true);
+    } else {
+      setShowVerificationPopup(false);
+      // No need to set verificationStatus
+    }
+  }, [actualWeight, expectedWeightFromBill, hasContinueAfterMismatch, items.length, calculateWeightDifference]);
 
   const handleLogout = async () => {
     try {
@@ -153,11 +177,38 @@ const CartEntry: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      {/* Verification Popup Modal */}
+      {showVerificationPopup && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2 className={styles.modalTitle}>Weight Mismatch Detected</h2>
+            <p className={styles.modalText}>
+              The actual weight (<b>{actualWeight?.toLocaleString()}g</b>) does not match the expected weight (<b>{expectedWeightFromBill?.toLocaleString()}g</b>).
+              <br />
+              Difference: <span className={styles.dangerText}>{weightDifference?.toLocaleString()}g</span>
+            </p>
+            <div className={styles.modalActions}>
+              <button className={styles.modalButton} onClick={() => setShowVerificationPopup(false)}>
+                Cancel
+              </button>
+              <button
+                className={styles.modalButtonPrimary}
+                onClick={() => {
+                  setHasContinueAfterMismatch(true);
+                  setShowVerificationPopup(false);
+                }}
+              >
+                Continue Anyway
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Dashboard Header */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.headerFlex}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className={styles.flexAlignCenter}>
               <h1 className={styles.headerTitle}>Cart Weight Analytics</h1>
             </div>
             <nav className={styles.navbarNav}>
@@ -209,7 +260,7 @@ const CartEntry: React.FC = () => {
             <label htmlFor="username" className={styles.label}>
               Username
             </label>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className={styles.flexAlignCenter}>
               <span className={styles.inputPrefix}>USER</span>
               <input
                   id="username"
@@ -224,8 +275,7 @@ const CartEntry: React.FC = () => {
                     }
                   }}
                   placeholder="e.g., 60523"
-                  className={styles.input}
-                  style={{ flex: 1 }}
+                  className={`${styles.input} ${styles.inputFlex}`}
               />
             </div>
           </div>
@@ -242,7 +292,7 @@ const CartEntry: React.FC = () => {
                     {expectedWeightFromBill !== null ? (
                         <span>{expectedWeightFromBill.toLocaleString()}<span className={styles.weightUnit}> g</span></span>
                     ) : (
-                        <span style={{ color: '#9ca3af' }}>-</span>
+                        <span className={styles.grayText}>-</span>
                     )}
                   </div>
                   <p className={styles.weightDescription}>Fetched from bill data</p>
@@ -257,35 +307,42 @@ const CartEntry: React.FC = () => {
                     {actualWeight !== null ? (
                       <span>{actualWeight.toLocaleString()} <span className={styles.weightUnit}>g</span></span>
                     ) : (
-                      <span style={{ color: '#9ca3af' }}>-</span> /* text-gray-400 */
+                      <span className={styles.grayText}>-</span>
                     )}
                   </div>
                   <p className={styles.weightDescription}>From scale measurement</p>
                 </div>
 
-                <div className={`${styles.differenceCard}`} style={{
-                  backgroundColor: calculateWeightDifference() === null ? '#f9fafb' :
-                    Math.abs(calculateWeightDifference()!) <= 50 ? '#f0fdf4' :
-                      '#fef2f2'
-                }}>
+                <div
+                  className={
+                    `${styles.differenceCard} ` +
+                    (calculateWeightDifference() === null
+                      ? styles.bgNeutral
+                      : Math.abs(calculateWeightDifference()!) <= 50
+                        ? styles.bgSuccess
+                        : styles.bgDanger)
+                  }
+                >
                   <h4 className={styles.weightCardTitle}>Difference (±50g tolerance)</h4>
                   <div className={styles.differenceValue}>
                     {calculateWeightDifference() !== null ? (
-                      <span style={{
-                        color: Math.abs(calculateWeightDifference()!) <= 50 ? '#16a34a' : '#dc2626'
-                      }}>
+                      <span className={
+                        Math.abs(calculateWeightDifference()!) <= 50
+                          ? styles.successText
+                          : styles.dangerText
+                      }>
                         {calculateWeightDifference()!.toLocaleString()}
                         <span className={styles.differenceUnit}>g</span>
                       </span>
                     ) : (
-                      <span style={{ color: '#9ca3af' }}>-</span> /* text-gray-400 */
+                      <span className={styles.grayText}>-</span>
                     )}
                   </div>
                   <p className={styles.differenceMessage}>
                     {calculateWeightDifference() !== null && (
                       Math.abs(calculateWeightDifference()!) <= 50 ?
-                        '✅ Within tolerance' :
-                        '⚠️ Check for discrepancies'
+                        <span className={styles.successText}>✅ Within tolerance</span> :
+                        <span className={styles.dangerText}>⚠️ Check for discrepancies</span>
                     )}
                   </p>
                 </div>
@@ -298,33 +355,48 @@ const CartEntry: React.FC = () => {
               {calculateWeightDifference() !== null && (
                 <div className={styles.visualizationContainer}>
                   <div className={styles.visualizationLabels}>
-                   <span>
-                    Expected: {expectedWeightFromBill !== null ? expectedWeightFromBill.toLocaleString() : '-'}g
-                  </span>
+                    <span>
+                      Expected: {expectedWeightFromBill !== null ? expectedWeightFromBill.toLocaleString() : '-'}g
+                    </span>
                     <span>Actual: {actualWeight!.toLocaleString()}g</span>
                   </div>
                   <div className={styles.progressBarBackground}>
                     <div
-                      className={styles.progressBarFill}
-                      style={{
-                        width: `${Math.min(expectedWeightFromBill as number, actualWeight!) / Math.max(expectedWeightFromBill as number, actualWeight!) * 100}%`,
-                        backgroundColor: Math.abs(calculateWeightDifference()!) <= 50 ? '#4f46e5' : '#ef4444'
-                      }}
+                      className={
+                        styles.progressBarFill + ' ' +
+                        (Math.abs(calculateWeightDifference()!) <= 50
+                          ? styles.bgProgressSuccess
+                          : styles.bgProgressDanger)
+                      }
+                      data-width={Math.min(expectedWeightFromBill as number, actualWeight!) / Math.max(expectedWeightFromBill as number, actualWeight!) * 100}
                     ></div>
                   </div>
                   <div className={styles.visualizationMessage}>
                     {calculateWeightDifference()! > 50 ? (
-                      <span style={{ color: '#dc2626' }}>Scale shows {calculateWeightDifference()!.toLocaleString()}g more than expected</span>
+                      <span className={styles.dangerText}>Scale shows {calculateWeightDifference()!.toLocaleString()}g more than expected</span>
                     ) : calculateWeightDifference()! < -50 ? (
-                      <span style={{ color: '#dc2626' }}>Scale shows {Math.abs(calculateWeightDifference()!).toLocaleString()}g less than expected</span>
+                      <span className={styles.dangerText}>Scale shows {Math.abs(calculateWeightDifference()!).toLocaleString()}g less than expected</span>
                     ) : (
-                      <span style={{ color: '#16a34a' }}>Within acceptable range (±50g)</span>
+                      <span className={styles.successText}>Within acceptable range (±50g)</span>
                     )}
                   </div>
                 </div>
               )}
             </div>
           </div>
+
+          {/* Proceed to Checkout Button */}
+          {items.length > 0 && (
+            <div className={styles.checkoutButtonContainer}>
+              <button
+                className={styles.checkoutButton}
+                onClick={() => navigate('/checkout')}
+                disabled={showVerificationPopup}
+              >
+                Proceed to Checkout
+              </button>
+            </div>
+          )}
 
           {/* Cart Items Section */}
           <section className={styles.cartItemsSection}>
@@ -370,10 +442,12 @@ const CartEntry: React.FC = () => {
                     {items.map((item, i) => (
                       <tr
                         key={i}
-                        className={styles.tableRow}
-                        style={{ backgroundColor: i % 2 === 0 ? '#ffffff' : '#f9fafb' }}
-                        onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#eef2ff'; }}
-                        onMouseOut={(e) => { e.currentTarget.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#f9fafb'; }}
+                        className={
+                          styles.tableRow + ' ' +
+                          (i % 2 === 0 ? styles.tableRowEven : styles.tableRowOdd)
+                        }
+                        onMouseOver={e => e.currentTarget.classList.add(styles.tableRowHover)}
+                        onMouseOut={e => e.currentTarget.classList.remove(styles.tableRowHover)}
                       >
                         <td className={`${styles.tableCell} ${styles.tableCellName}`}>{item.name}</td>
                         <td className={`${styles.tableCell} ${styles.tableCellRight}`}>{item.quantity}</td>
@@ -408,9 +482,10 @@ const CartEntry: React.FC = () => {
                     {actualWeight !== null ? actualWeight.toLocaleString() + 'g' : '-'}
                   </p>
                   {calculateWeightDifference() !== null && (
-                    <p className={styles.summaryStatus} style={{
-                      color: Math.abs(calculateWeightDifference()!) <= 50 ? '#dcfce7' : '#fecaca'
-                    }}>
+                    <p className={
+                      styles.summaryStatus + ' ' +
+                      (Math.abs(calculateWeightDifference()!) <= 50 ? styles.summaryStatusSuccess : styles.summaryStatusDanger)
+                    }>
                       {Math.abs(calculateWeightDifference()!) <= 50 ? (
                         '✅ Weight matches within tolerance'
                       ) : (
