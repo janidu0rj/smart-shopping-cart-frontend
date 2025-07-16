@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useEditorContext } from "../../hooks/context/useEditorContext";
-import { InventoryItem, Item, Product } from "../../types/Item";
+import { Item, Product } from "../../types/Item";
 import { useItemContext } from "../../hooks/context/useItemContext";
 import styles from "./ItemMapEditorSidebar.module.css";
 import { productService } from "../../hooks/services/productService";
@@ -10,7 +10,7 @@ const ItemMapEditorSidebar: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const { toggleEditor } = useEditorContext();
     const { products, setProducts, setFilteredProducts, setDragging } = useItemContext();
-    const [message, setMessage] = useState<string | null>(null);
+    // const [message, setMessage] = useState<string | null>(null);
 
     // utils/getProductImageSrc.ts
     function getProductImageSrc(productImage: string | File | undefined): string {
@@ -32,14 +32,19 @@ const ItemMapEditorSidebar: React.FC = () => {
 
     const handleFetchAllProducts = useCallback(async () => {
         setLoading(true);
-        setMessage(null);
+        // setMessage(null);
         setError(null);
         try {
             const fetchedProducts = await productService.getAllProducts();
             setProducts(fetchedProducts);
             setFilteredProducts(fetchedProducts);
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Failed to fetch products.");
+        } catch (err: unknown) {
+        if (err instanceof Error && "response" in err) {
+            const axiosErr = err as { response?: { data?: { message?: string } } };
+            setError(axiosErr.response?.data?.message || "Failed to fetch products.");
+        } else {
+            setError("Failed to fetch products.");
+        }
         } finally {
             setLoading(false);
         }

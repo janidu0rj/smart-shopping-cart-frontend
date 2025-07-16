@@ -118,10 +118,10 @@ const CartEntry: React.FC = () => {
     fetchItems();
   }, [debouncedCartId]);
 
-  const calculateTotal = useCallback(() =>
-    items.reduce((total, item) => total + item.price * item.quantity, 0),
-    [items]
-  );
+  // const calculateTotal = useCallback(() =>
+  //   items.reduce((total, item) => total + item.price * item.quantity, 0),
+  //   [items]
+  // );
 
   const calculateWeightDifference = useCallback(() => {
     if (actualWeight === null || expectedWeightFromBill === null) return null;

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../hooks/services/authService';
 import { AuthContextType, Profile } from '../types/Auth';
@@ -25,17 +25,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   //   }
   // }, []);
 
-  const login = async (username: string, password: string) => {
-    try {
-      const response = await authService.login({ username, password });
-      setIsAuthenticated(true);
-      setProfile({...profile, username: username});
-      console.log('Login successful:', response);
-      navigate('/dashboard');
-    } catch (error) {
-      throw error;
-    }
-  };
+const login = async (username: string, password: string) => {
+  const response = await authService.login({ username, password });
+  setIsAuthenticated(true);
+  setProfile({ ...profile, username });
+  console.log("Login successful:", response);
+  navigate("/dashboard");
+};
+
 
   const logout = () => {
     authService.logout();

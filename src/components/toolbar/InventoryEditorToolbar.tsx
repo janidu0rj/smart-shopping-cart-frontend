@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Plus, Save } from "lucide-react";
-import { InventoryItem } from "../../types/Item";
 import { saveInventoryData } from "../../utils/SaveData";
 import { useItemContext } from "../../hooks/context/useItemContext";
 
