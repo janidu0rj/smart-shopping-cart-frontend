@@ -81,7 +81,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                         <FormField
                             label="Product Category"
                             name="productCategory"
-                            type="number"
+                            type="string"
                             value={formData.productCategory}
                             onChange={onInputChange}
                             placeholder="Electronics"
@@ -90,7 +90,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
                         <FormField
                             label="Product Brand"
                             name="productBrand"
-                            type="number"
+                            type="string"
                             value={formData.productBrand}
                             onChange={onInputChange}
                             placeholder="Apple"
